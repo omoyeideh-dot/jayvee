@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jayvan: The Media Engine Behind Your Favorite Financial Expert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<noscript><style>[data-reveal], .ledger-table [data-row]{ opacity:1 !important; transform:none !important; filter:none !important; }</style></noscript>
+</head>
+<body>
+
+<!-- Grain overlay -->
+<div class="grain"></div>
+
+<!-- Custom cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">Jay<span class="nav-mark-accent">van</span></div>
+    <nav class="nav-links">
+      <a href="#process">Process</a>
+      <a href="#offer">The Offer</a>
+      <a href="#how">How it works</a>
+      <a href="#about">About</a>
+    </nav>
+    <a href="#apply" class="nav-cta">Apply now</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="hero-beam"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="hero-inner">
+    <h1 class="hero-headline">
+      <span class="line" data-reveal>Hire an army of financial</span>
+      <span class="line cycle-line" data-reveal>
+        <span class="cycle-word-wrap">
+          <span class="cycle-word" id="cycleWord">media</span>
+        </span>
+        experts and</span>
+      <span class="line" data-reveal>become a <em>hands&#8209;off</em> CEO.</span>
+    </h1>
+
+    <p class="hero-subhead" data-reveal>
+      Stop stitching together editors, VAs, and social media managers. Let us own the whole
+      workflow: strategy, production, team, and reporting, for the cost of one hire.
+    </p>
+
+    <div class="hero-actions" data-reveal>
+      <a href="#apply" class="btn btn-primary magnetic">
+        <span>Apply for a call</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="hero-qualifier">Already doing 1&ndash;2 shoot days a month? We might be a fit.</p>
+    </div>
+  </div>
+
+  <div class="hero-scroll-cue" data-reveal>
+    <span>Scroll</span>
+    <div class="scroll-line"><i></i></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="section-inner">
+    <div class="problem-head">
+      <span class="eyebrow" data-reveal>The problem</span>
+      <h2 class="problem-title" data-reveal>Your content has outgrown a patchwork of freelancers.</h2>
+      <p class="problem-sub" data-reveal>Most financial experts scaling content end up managing a patchwork of freelancers who don't talk to each other. We remove that entirely: one point of ownership over your whole brand and media function, for the cost of hiring an experienced in-house media director.</p>
+    </div>
+
+    <div class="problem-list">
+      <div class="problem-item" data-reveal>
+        <div>
+          <h3>Founder-dependent content</h3>
+          <p>Nothing moves unless you're the one filming, writing, and chasing the calendar yourself.</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div>
+          <h3>A patchwork with no single owner</h3>
+          <p>An editor here, a VA there, a social manager somewhere else. None of them talking to each other.</p>
+        </div>
+      </div>
+      <div class="problem-item" data-reveal>
+        <div>
+          <h3>Content that doesn't convert</h3>
+          <p>Volume without a system connecting what you post to what you actually earn.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS / LEDGER (white, per brief: "white background, black text") -->
+<section class="process" id="process">
+  <div class="section-inner">
+    <span class="eyebrow eyebrow-onlight" data-reveal>Our process</span>
+    <h2 class="process-title" data-reveal>We are your entire media team: the strategy, the production pipeline, and the analytics.</h2>
+    <p class="process-sub" data-reveal>Every month, we share clear KPIs, measurable outcomes from the previous month, and data-driven strategies to get you closer to the annual goal for your financial brand.</p>
+
+    <div class="ledger" data-reveal>
+      <div class="ledger-head">
+        <span class="ledger-eyebrow">Cost / workflow comparison</span>
+        <h3>You're not just hiring a director.<br>You're replacing the department.</h3>
+      </div>
+
+      <div class="ledger-table" id="ledgerTable">
+        <div class="ledger-row ledger-col-head">
+          <span class="ledger-cell ledger-label">Function</span>
+          <span class="ledger-cell">Hiring it yourself</span>
+          <span class="ledger-cell ledger-highlight-head">Working with us</span>
+        </div>
+
+        <div class="ledger-row" data-row>
+          <span class="ledger-cell ledger-label">Content strategist / director</span>
+          <span class="ledger-cell ledger-x">Separate hire</span>
+          <span class="ledger-cell ledger-check">Included</span>
+        </div>
+        <div class="ledger-row" data-row>
+          <span class="ledger-cell ledger-label">Video editor(s)</span>
+          <span class="ledger-cell ledger-x">Separate hire</span>
+          <span class="ledger-cell ledger-check">Included</span>
+        </div>
+        <div class="ledger-row" data-row>
+          <span class="ledger-cell ledger-label">Thumbnail designer</span>
+          <span class="ledger-cell ledger-x">Separate hire</span>
+          <span class="ledger-cell ledger-check">Included</span>
+        </div>
+        <div class="ledger-row" data-row>
+          <span class="ledger-cell ledger-label">Social media manager</span>
+          <span class="ledger-cell ledger-x">Separate hire</span>
+          <span class="ledger-cell ledger-check">Included</span>
+        </div>
+        <div class="ledger-row" data-row>
+          <span class="ledger-cell ledger-label">Analytics / reporting owner</span>
+          <span class="ledger-cell ledger-x">Separate hire</span>
+          <span class="ledger-cell ledger-check">Included</span>
+        </div>
+        <div class="ledger-row ledger-row-emphasis" data-row>
+          <span class="ledger-cell ledger-label">Coordination</span>
+          <span class="ledger-cell ledger-x">Managing 4&ndash;5 contractors, none of whom talk to each other</span>
+          <span class="ledger-cell ledger-check">One team, one owner, one standard</span>
+        </div>
+        <div class="ledger-row ledger-row-total" data-row>
+          <span class="ledger-cell ledger-label">Total cost</span>
+          <span class="ledger-cell ledger-x">Cost of one senior hire + 3&ndash;4 contractors</span>
+          <span class="ledger-cell ledger-check ledger-check-total">Cost of one senior hire</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer" id="offer">
+  <div class="section-inner">
+    <span class="eyebrow" data-reveal>The offer</span>
+    <h2 class="offer-title" data-reveal>Four pillars. One engagement.</h2>
+    <p class="offer-sub" data-reveal>Each pillar below is a role a client would otherwise hire separately: strategist, producer, team lead, analyst. Here, it's one engagement.</p>
+
+    <div class="pillars">
+      <div class="pillar-card" data-reveal data-tilt>
+        <div class="pillar-mark"></div>
+        <h3>Strategy &amp; Calendar</h3>
+        <p>Always-on content strategy across YouTube, Instagram, TikTok, podcast, and email. Every piece tied to a business outcome: list growth, registrations, show-up rate, high-ticket sales. Not vanity metrics.</p>
+      </div>
+      <div class="pillar-card" data-reveal data-tilt>
+        <div class="pillar-mark"></div>
+        <h3>Production &amp; Publishing</h3>
+        <p>Turn 1&ndash;2 shoot days a month into a full pipeline: long-form, shorts, carousels, emails, ads. We brief, direct, and approve every hook, script, thumbnail, and caption. Tight, non-negotiable publishing cadence.</p>
+      </div>
+      <div class="pillar-card" data-reveal data-tilt>
+        <div class="pillar-mark"></div>
+        <h3>The Whole Team, Already Built</h3>
+        <p>No hiring, onboarding, or managing separate contractors. Editors, thumbnail designer, social manager, already assembled, already trained on your brand standards, already reporting to one owner: us, as we report to you.</p>
+      </div>
+      <div class="pillar-card" data-reveal data-tilt>
+        <div class="pillar-mark"></div>
+        <h3>Reporting &amp; Accountability</h3>
+        <p>Clear KPIs every month. Measurable outcomes from the previous month. Data-driven strategy to get you closer to the annual goal for your financial brand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-inner">
+    <span class="eyebrow eyebrow-light" data-reveal>How it works</span>
+    <h2 class="how-title" data-reveal>From audit to scale, in four moves.</h2>
+
+    <div class="steps" id="stepsWrap">
+      <div class="steps-line"><div class="steps-line-fill" id="stepsLineFill"></div></div>
+
+      <div class="step" data-reveal data-step>
+        <div class="step-marker">01</div>
+        <h3>Audit</h3>
+        <p>We map your current content, team, and numbers, and find exactly where the system is leaking revenue.</p>
+      </div>
+      <div class="step" data-reveal data-step>
+        <div class="step-marker">02</div>
+        <h3>Build the Machine</h3>
+        <p>Strategy, calendar, and pipeline get built around your existing shoot days. Nothing about your life changes.</p>
+      </div>
+      <div class="step" data-reveal data-step>
+        <div class="step-marker">03</div>
+        <h3>Run &amp; Report</h3>
+        <p>The team executes on a fixed cadence. You get clear, monthly KPIs tied to your annual goal.</p>
+      </div>
+      <div class="step" data-reveal data-step>
+        <div class="step-marker">04</div>
+        <h3>Scale with Paid</h3>
+        <p>Once the organic engine is consistent, we layer paid distribution on top of what's already converting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<section class="who" id="who">
+  <div class="section-inner who-inner">
+    <span class="eyebrow eyebrow-light" data-reveal>Who this is for</span>
+    <h2 class="who-title" data-reveal>
+      If you are a 7 or 8&#8209;figure financial expert ready to step fully into your CEO role,
+      <span class="who-highlight">this is for you.</span>
+    </h2>
+
+    <div class="who-grid">
+      <div class="who-item" data-reveal>
+        <p>An existing personal brand, 5K to 500K+ followers, and you're already the face of the business.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>Already creating content, but it's founder-dependent, inconsistent, or disconnected from launches and revenue.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>Running, or about to run, challenges, cohorts, high-ticket offers, or a signature program.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>You have some team already, an editor, a VA, but no single owner of strategy, standards, or numbers.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>Mission-aligned. You care about serving an underserved audience, not growth for its own sake.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner about-inner">
+    <span class="eyebrow eyebrow-light" data-reveal>About</span>
+    <h2 class="about-title" data-reveal>Built by operators, not freelancers.</h2>
+    <p class="about-copy" data-reveal>
+      Jayvan exists because the financial creators we admired kept hitting the same wall: real audiences
+      and real expertise, but no system turning either into revenue. We've run the strategy, production, and
+      reporting behind seven and eight-figure financial brands, and built Jayvan to be the media department
+      they never had to hire, onboard, or manage themselves.
+    </p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="apply">
+  <div class="final-cta-bg"><div class="hero-beam beam-2"></div></div>
+  <div class="section-inner final-cta-inner">
+    <h2 data-reveal>Ready to become a hands&#8209;off CEO?</h2>
+    <p data-reveal>A short application, not a sales call. Fifteen minutes to see if we're a fit.</p>
+    <a href="#" class="btn btn-primary btn-large magnetic" data-reveal>
+      <span>Apply for a call</span>
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="final-qualifier" data-reveal>Are you doing 1&ndash;2 shoot days a month already? We might be a fit.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="section-inner footer-inner">
+    <span class="footer-mark">Jay<span class="nav-mark-accent">van</span></span>
+    <span>&copy; 2026. All rights reserved.</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
