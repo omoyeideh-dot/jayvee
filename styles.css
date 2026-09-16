@@ -139,20 +139,39 @@ img{ max-width: 100%; display: block; }
   justify-content: space-between;
 }
 .nav-mark{
+  display: inline-flex;
+  align-items: center;
   font-family: var(--serif);
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: -0.015em;
   color: var(--white);
 }
+.nav-mark-img{
+  display: none;
+  height: 32px;
+  width: auto;
+}
+.nav-mark-img.is-loaded{ display: block; }
+.nav-mark-text.is-hidden{ display: none; }
 .nav-mark-accent{ color: var(--violet-bright); }
 .footer-mark{
+  display: inline-flex;
+  align-items: center;
   font-family: var(--serif);
   font-weight: 700;
   font-size: 1.2rem;
   letter-spacing: -0.015em;
   color: var(--lavender-grey);
 }
+.footer-mark-img{
+  display: none;
+  height: 24px;
+  width: auto;
+  opacity: 0.9;
+}
+.footer-mark-img.is-loaded{ display: block; }
+.footer-mark-text.is-hidden{ display: none; }
 .footer-mark .nav-mark-accent{ color: var(--violet-glow); }
 .nav-links{
   display: flex;
@@ -181,11 +200,15 @@ img{ max-width: 100%; display: block; }
 .nav-links a:hover::after{ transform: scaleX(1); transform-origin: left; }
 
 .nav-cta{
+  font-family: var(--sans);
   font-size: 0.85rem;
   font-weight: 500;
   padding: 9px 20px;
   border: 1px solid var(--lavender-dim);
   border-radius: 999px;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
   transition: border-color 0.3s var(--ease-soft), background 0.3s var(--ease-soft), color 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
 }
 .nav-cta:hover{
@@ -212,6 +235,8 @@ img{ max-width: 100%; display: block; }
   font-size: 0.95rem;
   padding: 15px 26px;
   border-radius: 999px;
+  border: none;
+  cursor: pointer;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -274,11 +299,11 @@ html.js-reveal-ready [data-reveal]{
 
 .hero{
   position: relative;
-  min-height: 100vh;
+  min-height: 78vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 160px var(--gutter) 140px;
+  padding: 160px var(--gutter) 100px;
   overflow: hidden;
 }
 
@@ -321,6 +346,16 @@ html.js-reveal-ready [data-reveal]{
   z-index: 2;
   max-width: 880px;
 }
+
+/* Standalone header: centered, no subhead/button, own section per brief */
+.hero-inner-standalone{
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hero-headline-center{ margin: 0; }
+.hero-headline-center .line{ text-align: center; }
+.cycle-line-center{ justify-content: center; }
 
 .hero-kicker{
   font-size: 0.85rem;
@@ -399,8 +434,10 @@ html.js-reveal-ready [data-reveal]{
 .hero-scroll-cue{
   position: absolute;
   bottom: 40px;
-  left: var(--gutter);
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 12px;
   font-size: 0.75rem;
@@ -458,6 +495,43 @@ html.js-reveal-ready [data-reveal]{
 /* ==========================================================================
    Problem
    ========================================================================== */
+
+/* ==========================================================================
+   Claim section — white, bold purple secondary headline (1910.ai direction)
+   ========================================================================== */
+
+.claim{
+  background: var(--light-bg);
+  border-top: 1px solid var(--line-light);
+  text-align: center;
+}
+.claim-inner{
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.claim-headline{
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  color: var(--violet-deep);
+  margin: 0 0 28px;
+}
+.claim-subhead{
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: #4A4453;
+  max-width: 640px;
+  margin: 0 0 40px;
+}
+
+@media (max-width: 600px){
+  .claim-headline{ font-size: clamp(1.7rem, 7vw, 2.2rem); }
+}
 
 .problem{ background: var(--near-black); border-top: 1px solid var(--line-dark); }
 .problem-head{ max-width: 680px; margin-bottom: 64px; }
@@ -913,3 +987,92 @@ html.js-reveal-ready .ledger-table [data-row]{
   color: var(--lavender-dim);
 }
 .footer-inner span:first-child{ font-family: var(--serif); color: var(--lavender-grey); }
+
+/* ==========================================================================
+   Partner With Us modal — black box per brief
+   ========================================================================== */
+
+body.modal-open{ overflow: hidden; }
+
+.partner-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-premium), visibility 0s linear 0.35s;
+}
+.partner-modal.is-open{
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.35s var(--ease-premium), visibility 0s linear 0s;
+}
+.partner-modal-backdrop{
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 4, 8, 0.78);
+  backdrop-filter: blur(6px);
+}
+.partner-modal-box{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  background: var(--near-black);
+  border: 1px solid var(--line-dark);
+  border-radius: 12px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 60px 120px -40px rgba(0,0,0,0.7);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.4s var(--ease-premium);
+}
+.partner-modal.is-open .partner-modal-box{
+  transform: translateY(0) scale(1);
+}
+.partner-modal-close{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--lavender-grey);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.25s var(--ease-soft), color 0.25s var(--ease-soft);
+}
+.partner-modal-close:hover{
+  background: var(--surface);
+  color: var(--white);
+}
+.partner-modal-eyebrow{
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--white);
+  margin: 0 0 16px;
+}
+.partner-modal-copy{
+  font-size: 0.98rem;
+  color: var(--lavender-grey);
+  margin: 0 0 6px;
+}
+.partner-modal-email{
+  display: inline-block;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--violet-glow);
+  margin-top: 8px;
+  word-break: break-word;
+  transition: color 0.25s var(--ease-soft);
+}
+.partner-modal-email:hover{ color: var(--white); }

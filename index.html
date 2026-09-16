@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jayvan: The Media Engine Behind Your Favorite Financial Expert</title>
+<title>Jayvan: The Digital Media Engine Behind Your Favorite Financial Expert</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,52 +24,85 @@
 <!-- NAV -->
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <div class="nav-mark">Jay<span class="nav-mark-accent">van</span></div>
+    <a href="#hero" class="nav-mark">
+      <img src="logo.png" alt="Jayvan" class="nav-mark-img" onload="this.classList.add('is-loaded'); this.nextElementSibling.classList.add('is-hidden');" onerror="this.remove();">
+      <span class="nav-mark-text">Jay<span class="nav-mark-accent">van</span></span>
+    </a>
     <nav class="nav-links">
+      <a href="#who">Who it's for</a>
       <a href="#process">Process</a>
       <a href="#offer">The Offer</a>
       <a href="#how">How it works</a>
       <a href="#about">About</a>
     </nav>
-    <a href="#apply" class="nav-cta">Apply now</a>
+    <button type="button" class="nav-cta" data-open-partner>Partner With Us</button>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- HERO / HEADER (stands alone: no subhead, no button) -->
 <section class="hero" id="hero">
   <div class="hero-bg">
     <div class="hero-beam"></div>
     <div class="hero-grid"></div>
   </div>
 
-  <div class="hero-inner">
-    <h1 class="hero-headline">
-      <span class="line" data-reveal>Hire an army of financial</span>
-      <span class="line cycle-line" data-reveal>
+  <div class="hero-inner hero-inner-standalone">
+    <h1 class="hero-headline hero-headline-center">
+      <span class="line" data-reveal>The Digital</span>
+      <span class="line cycle-line cycle-line-center" data-reveal>
         <span class="cycle-word-wrap">
-          <span class="cycle-word" id="cycleWord">media</span>
+          <span class="cycle-word" id="cycleWord">Media</span>
         </span>
-        experts and</span>
-      <span class="line" data-reveal>become a <em>hands&#8209;off</em> CEO.</span>
+      </span>
+      <span class="line" data-reveal>Engine Behind Your</span>
+      <span class="line" data-reveal>Favorite Financial Expert</span>
     </h1>
-
-    <p class="hero-subhead" data-reveal>
-      Stop stitching together editors, VAs, and social media managers. Let us own the whole
-      workflow: strategy, production, team, and reporting, for the cost of one hire.
-    </p>
-
-    <div class="hero-actions" data-reveal>
-      <a href="#apply" class="btn btn-primary magnetic">
-        <span>Apply for a call</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <p class="hero-qualifier">Already doing 1&ndash;2 shoot days a month? We might be a fit.</p>
-    </div>
   </div>
 
   <div class="hero-scroll-cue" data-reveal>
     <span>Scroll</span>
     <div class="scroll-line"><i></i></div>
+  </div>
+</section>
+
+<!-- SECONDARY HEADLINE (white, bold purple, standalone claim + one CTA) -->
+<section class="claim" id="claim">
+  <div class="section-inner claim-inner">
+    <h2 class="claim-headline" data-reveal>Hire an Army of Financial Media Experts and Become A Hands&#8209;Off CEO</h2>
+    <p class="claim-subhead" data-reveal>Stop stitching together editors, VAs, and social media managers. Let us own the whole workflow. Strategy, production, team, and reporting for the cost of one hire.</p>
+    <button type="button" class="btn btn-primary btn-large magnetic" data-reveal data-open-partner>
+      <span>Partner With Us</span>
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- WHO THIS IS FOR (moved up, directly after the claim section) -->
+<section class="who" id="who">
+  <div class="section-inner who-inner">
+    <span class="eyebrow eyebrow-light" data-reveal>Who this is for</span>
+    <h2 class="who-title" data-reveal>
+      If you are a 7 or 8&#8209;figure financial expert ready to step fully into your CEO role,
+      <span class="who-highlight">this is for you.</span>
+    </h2>
+
+    <div class="who-grid">
+      <div class="who-item" data-reveal>
+        <p>You are a founder with an existing personal brand, 5K to 500K+ followers, and you're already the face of the business.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>You are already creating content, but it's founder-dependent, inconsistent, or disconnected from launches and revenue.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>You are running, or about to run, challenges, cohorts, high-ticket offers, or a signature program.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>You are someone with some team already, an editor, a VA, but no single owner of strategy, standards, or numbers.</p>
+      </div>
+      <div class="who-item" data-reveal>
+        <p>You are mission-aligned. You care about serving an underserved audience, not growth for its own sake.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -230,35 +263,6 @@
   </div>
 </section>
 
-<!-- WHO THIS IS FOR -->
-<section class="who" id="who">
-  <div class="section-inner who-inner">
-    <span class="eyebrow eyebrow-light" data-reveal>Who this is for</span>
-    <h2 class="who-title" data-reveal>
-      If you are a 7 or 8&#8209;figure financial expert ready to step fully into your CEO role,
-      <span class="who-highlight">this is for you.</span>
-    </h2>
-
-    <div class="who-grid">
-      <div class="who-item" data-reveal>
-        <p>An existing personal brand, 5K to 500K+ followers, and you're already the face of the business.</p>
-      </div>
-      <div class="who-item" data-reveal>
-        <p>Already creating content, but it's founder-dependent, inconsistent, or disconnected from launches and revenue.</p>
-      </div>
-      <div class="who-item" data-reveal>
-        <p>Running, or about to run, challenges, cohorts, high-ticket offers, or a signature program.</p>
-      </div>
-      <div class="who-item" data-reveal>
-        <p>You have some team already, an editor, a VA, but no single owner of strategy, standards, or numbers.</p>
-      </div>
-      <div class="who-item" data-reveal>
-        <p>Mission-aligned. You care about serving an underserved audience, not growth for its own sake.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="section-inner about-inner">
@@ -274,25 +278,41 @@
 </section>
 
 <!-- FINAL CTA -->
-<section class="final-cta" id="apply">
+<section class="final-cta" id="partner">
   <div class="final-cta-bg"><div class="hero-beam beam-2"></div></div>
   <div class="section-inner final-cta-inner">
     <h2 data-reveal>Ready to become a hands&#8209;off CEO?</h2>
     <p data-reveal>A short application, not a sales call. Fifteen minutes to see if we're a fit.</p>
-    <a href="#" class="btn btn-primary btn-large magnetic" data-reveal>
-      <span>Apply for a call</span>
+    <button type="button" class="btn btn-primary btn-large magnetic" data-reveal data-open-partner>
+      <span>Partner With Us</span>
       <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
+    </button>
     <p class="final-qualifier" data-reveal>Are you doing 1&ndash;2 shoot days a month already? We might be a fit.</p>
   </div>
 </section>
 
 <footer class="footer">
   <div class="section-inner footer-inner">
-    <span class="footer-mark">Jay<span class="nav-mark-accent">van</span></span>
+    <span class="footer-mark">
+      <img src="logo.png" alt="Jayvan" class="footer-mark-img" onload="this.classList.add('is-loaded'); this.nextElementSibling.classList.add('is-hidden');" onerror="this.remove();">
+      <span class="footer-mark-text">Jay<span class="nav-mark-accent">van</span></span>
+    </span>
     <span>&copy; 2026. All rights reserved.</span>
   </div>
 </footer>
+
+<!-- PARTNER MODAL -->
+<div class="partner-modal" id="partnerModal" aria-hidden="true">
+  <div class="partner-modal-backdrop" data-close-partner></div>
+  <div class="partner-modal-box" role="dialog" aria-modal="true" aria-labelledby="partnerModalTitle">
+    <button type="button" class="partner-modal-close" data-close-partner aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <p class="partner-modal-eyebrow" id="partnerModalTitle">Partner with us</p>
+    <p class="partner-modal-copy">For partnership requests, reach us at</p>
+    <a href="mailto:partners@jayvandigital.com" class="partner-modal-email">partners@jayvandigital.com</a>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

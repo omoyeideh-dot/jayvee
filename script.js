@@ -83,7 +83,7 @@
   /* -----------------------------------------------------------------
      Hero word-cycle (Media / Marketing / Branding / Technology)
   ----------------------------------------------------------------- */
-  const words = ['media', 'marketing', 'branding', 'technology'];
+  const words = ['Media', 'Marketing', 'Branding', 'Technology'];
   const cycleWordEl = document.getElementById('cycleWord');
   if (cycleWordEl && !reduceMotion) {
     let idx = 0;
@@ -189,4 +189,39 @@
       window.scrollTo({ top: y, behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   });
+
+  /* -----------------------------------------------------------------
+     Partner With Us modal
+  ----------------------------------------------------------------- */
+  const partnerModal = document.getElementById('partnerModal');
+  const openTriggers = document.querySelectorAll('[data-open-partner]');
+  const closeTriggers = partnerModal ? partnerModal.querySelectorAll('[data-close-partner]') : [];
+  let lastFocused = null;
+
+  function openPartnerModal() {
+    if (!partnerModal) return;
+    lastFocused = document.activeElement;
+    partnerModal.classList.add('is-open');
+    partnerModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    const closeBtn = partnerModal.querySelector('.partner-modal-close');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closePartnerModal() {
+    if (!partnerModal) return;
+    partnerModal.classList.remove('is-open');
+    partnerModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  openTriggers.forEach((btn) => btn.addEventListener('click', openPartnerModal));
+  closeTriggers.forEach((btn) => btn.addEventListener('click', closePartnerModal));
+
+  if (partnerModal) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && partnerModal.classList.contains('is-open')) closePartnerModal();
+    });
+  }
 })();
