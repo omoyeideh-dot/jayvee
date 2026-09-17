@@ -347,17 +347,18 @@ html.js-reveal-ready [data-reveal]{
   max-width: 880px;
 }
 
-/* Standalone header: centered, no subhead/button, own section per brief.
-   Text is sized to occupy the section rather than sit small and centered
-   in a lot of empty space. */
+/* Standalone header: left-aligned per client direction (matches the
+   original first-iteration layout), no subhead/button, own section.
+   Text is sized to occupy the section rather than sit small in a lot
+   of empty space. */
 .hero-inner-standalone{
   max-width: 1400px;
-  margin: 0 auto;
-  text-align: center;
+  margin: 0;
+  text-align: left;
 }
 .hero-headline-center{ margin: 0; }
-.hero-headline-center .line{ text-align: center; }
-.cycle-line-center{ justify-content: center; }
+.hero-headline-center .line{ text-align: left; }
+.cycle-line-center{ justify-content: flex-start; }
 .hero-headline-fill{
   font-size: clamp(3.2rem, 8.6vw, 7.6rem);
   line-height: 1.05;
@@ -398,13 +399,15 @@ html.js-reveal-ready [data-reveal]{
 .hero-headline .line{ display: block; }
 .hero-headline em{ font-style: italic; font-weight: 400; color: var(--violet-glow); }
 
-.cycle-line{ display: flex; align-items: baseline; justify-content: center; gap: 0.32ch; flex-wrap: wrap; }
+.hero-headline .cycle-line{ display: flex; align-items: baseline; justify-content: flex-start; gap: 0.32ch; flex-wrap: nowrap; max-width: 100%; }
+.cycle-static{ white-space: nowrap; flex-shrink: 0; }
 .cycle-word-wrap{
   display: inline-block;
   position: relative;
   overflow: hidden;
   vertical-align: bottom;
   height: 1.08em;
+  white-space: nowrap;
 }
 .cycle-word{
   display: inline-block;
@@ -440,11 +443,10 @@ html.js-reveal-ready [data-reveal]{
 .hero-scroll-cue{
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: var(--gutter);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   font-size: 0.75rem;
   color: var(--lavender-dim);
@@ -473,6 +475,9 @@ html.js-reveal-ready [data-reveal]{
 @media (max-width: 760px){
   .hero{ padding-top: 120px; }
   .hero-scroll-cue{ display: none; }
+  /* Slightly smaller ceiling so the longest cycling word (Technology)
+     never clips against the right edge at narrow widths. */
+  .hero-headline-fill{ font-size: clamp(2.1rem, 9.6vw, 3rem); }
 }
 
 /* ==========================================================================
