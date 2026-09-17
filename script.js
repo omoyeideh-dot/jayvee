@@ -4,7 +4,7 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* -----------------------------------------------------------------
-     Scroll progress bar
+     Scroll progress bar yessssss
   ----------------------------------------------------------------- */
   const progressBar = document.getElementById('scrollProgress');
   function updateProgress() {
