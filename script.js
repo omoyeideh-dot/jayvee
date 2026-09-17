@@ -94,6 +94,7 @@
      rendered widths rather than relying on a fixed clamp() guess, so it
      self-corrects for font-rendering differences across devices. */
   function fitCycleLine() {
+    return;
     if (!cycleLineEl || !heroHeadlineEl) return;
     if (!heroHeadlineEl.dataset.fitted) heroHeadlineEl.style.fontSize = '';
     const containerWidth = cycleLineEl.parentElement.clientWidth;
