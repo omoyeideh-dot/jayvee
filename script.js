@@ -4,7 +4,7 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* -----------------------------------------------------------------
-     Scroll progress bar yessssss
+     Scroll progress bar yessssss biiiiiiii
   ----------------------------------------------------------------- */
   const progressBar = document.getElementById('scrollProgress');
   function updateProgress() {
@@ -95,7 +95,7 @@
      self-corrects for font-rendering differences across devices. */
   function fitCycleLine() {
     if (!cycleLineEl || !heroHeadlineEl) return;
-    heroHeadlineEl.style.fontSize = '';
+    if (!heroHeadlineEl.dataset.fitted) heroHeadlineEl.style.fontSize = '';
     const containerWidth = cycleLineEl.parentElement.clientWidth;
     let current = parseFloat(getComputedStyle(heroHeadlineEl).fontSize);
     let guard = 0;
@@ -123,8 +123,14 @@
 
   // Fit on load (covers whichever word starts visible) and on resize/orientation change.
   window.addEventListener('load', fitCycleLine);
-  window.addEventListener('resize', fitCycleLine);
-  fitCycleLine();
+window.addEventListener('resize', fitCycleLine);
+fitCycleLine();
+setTimeout(fitCycleLine, 100);
+setTimeout(fitCycleLine, 500);
+setTimeout(fitCycleLine, 1500);
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(fitCycleLine);
+}
 
   /* -----------------------------------------------------------------
      Ledger rows tally in when the ledger enters view
