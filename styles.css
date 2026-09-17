@@ -408,6 +408,7 @@ html.js-reveal-ready [data-reveal]{
   vertical-align: bottom;
   height: 1.08em;
   white-space: nowrap;
+  flex-shrink: 0
 }
 .cycle-word{
   display: inline-block;
