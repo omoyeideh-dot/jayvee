@@ -299,7 +299,7 @@ html.js-reveal-ready [data-reveal]{
 
 .hero{
   position: relative;
-  min-height: 78vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -347,15 +347,21 @@ html.js-reveal-ready [data-reveal]{
   max-width: 880px;
 }
 
-/* Standalone header: centered, no subhead/button, own section per brief */
+/* Standalone header: centered, no subhead/button, own section per brief.
+   Text is sized to occupy the section rather than sit small and centered
+   in a lot of empty space. */
 .hero-inner-standalone{
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
   text-align: center;
 }
 .hero-headline-center{ margin: 0; }
 .hero-headline-center .line{ text-align: center; }
 .cycle-line-center{ justify-content: center; }
+.hero-headline-fill{
+  font-size: clamp(3.2rem, 8.6vw, 7.6rem);
+  line-height: 1.05;
+}
 
 .hero-kicker{
   font-size: 0.85rem;
@@ -392,7 +398,7 @@ html.js-reveal-ready [data-reveal]{
 .hero-headline .line{ display: block; }
 .hero-headline em{ font-style: italic; font-weight: 400; color: var(--violet-glow); }
 
-.cycle-line{ display: flex; align-items: baseline; gap: 0.28ch; flex-wrap: wrap; }
+.cycle-line{ display: flex; align-items: baseline; justify-content: center; gap: 0.32ch; flex-wrap: wrap; }
 .cycle-word-wrap{
   display: inline-block;
   position: relative;
@@ -493,28 +499,46 @@ html.js-reveal-ready [data-reveal]{
 .eyebrow-light{ color: var(--violet-glow); }
 
 /* ==========================================================================
-   Problem
+   Team showcase — single approved illustration, between header and claim.
+   Dark, editorial framing (Rage Media Group direction): generous padding,
+   no card/border chrome around the image itself, just breathing room.
    ========================================================================== */
 
 /* ==========================================================================
    Claim section — white, bold purple secondary headline (1910.ai direction)
+   plus the team illustration alongside it (Rage Media Group direction:
+   copy on one side, character illustration on the other, same section).
    ========================================================================== */
 
 .claim{
   background: var(--light-bg);
   border-top: 1px solid var(--line-light);
-  text-align: center;
 }
 .claim-inner{
-  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  text-align: left;
+}
+/* If the team image fails to load, fall back to the original centered,
+   text-only layout so nothing looks lopsided in the meantime. */
+.claim-inner.claim-inner-solo{
+  grid-template-columns: 1fr;
+  max-width: 780px;
+  text-align: center;
+}
+.claim-inner.claim-inner-solo .claim-copy{ align-items: center; }
+
+.claim-copy{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 .claim-headline{
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
   line-height: 1.14;
   letter-spacing: -0.015em;
   color: var(--violet-deep);
@@ -525,8 +549,28 @@ html.js-reveal-ready [data-reveal]{
   font-size: 1.1rem;
   line-height: 1.65;
   color: #4A4453;
-  max-width: 640px;
   margin: 0 0 40px;
+}
+
+.claim-media{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.claim-media-img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+@media (max-width: 900px){
+  .claim-inner{
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .claim-copy{ align-items: center; }
+  .claim-media{ order: -1; margin-bottom: 8px; }
 }
 
 @media (max-width: 600px){
