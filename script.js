@@ -85,6 +85,27 @@
   ----------------------------------------------------------------- */
   const words = ['Media', 'Marketing', 'Branding', 'Technology'];
   const cycleWordEl = document.getElementById('cycleWord');
+  const cycleLineEl = document.querySelector('.cycle-line');
+  const heroHeadlineEl = document.querySelector('.hero-headline-fill');
+
+  /* Shrinks the whole headline's font-size (all three lines scale together,
+     since they share one font-size) just enough that the longest word on
+     the cycling line never overflows its container. Measures real
+     rendered widths rather than relying on a fixed clamp() guess, so it
+     self-corrects for font-rendering differences across devices. */
+  function fitCycleLine() {
+    if (!cycleLineEl || !heroHeadlineEl) return;
+    heroHeadlineEl.style.fontSize = '';
+    const containerWidth = cycleLineEl.parentElement.clientWidth;
+    let current = parseFloat(getComputedStyle(heroHeadlineEl).fontSize);
+    let guard = 0;
+    while (cycleLineEl.scrollWidth > containerWidth && guard < 40) {
+      current -= 1;
+      heroHeadlineEl.style.fontSize = current + 'px';
+      guard++;
+    }
+  }
+
   if (cycleWordEl && !reduceMotion) {
     let idx = 0;
     setInterval(() => {
@@ -94,10 +115,16 @@
         cycleWordEl.textContent = words[idx];
         cycleWordEl.classList.remove('swap-out');
         cycleWordEl.classList.add('swap-in');
+        fitCycleLine();
         setTimeout(() => cycleWordEl.classList.remove('swap-in'), 520);
       }, 480);
     }, 2400);
   }
+
+  // Fit on load (covers whichever word starts visible) and on resize/orientation change.
+  window.addEventListener('load', fitCycleLine);
+  window.addEventListener('resize', fitCycleLine);
+  fitCycleLine();
 
   /* -----------------------------------------------------------------
      Ledger rows tally in when the ledger enters view
