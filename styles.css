@@ -1,5 +1,5 @@
 /* ==========================================================================
-   JAYVAN — design tokens yessssss
+   JAYVAN — design tokens
    ========================================================================== */
 
 :root{
@@ -271,6 +271,35 @@ img{ max-width: 100%; display: block; }
 
 .btn-large{ padding: 18px 34px; font-size: 1.02rem; }
 
+/* Quieter outline-style CTA for repeated in-section prompts, so they
+   don't visually compete with the one main filled CTA in the final
+   section. */
+.btn-secondary{
+  color: var(--white);
+  background: transparent;
+  border: 1px solid var(--line-dark);
+  box-shadow: none;
+}
+.btn-secondary:hover{
+  border-color: var(--violet-glow);
+  background: rgba(139,92,246,0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -10px rgba(139,92,246,0.4);
+}
+.btn-secondary::before{ display: none; }
+
+/* Section-level CTA wrapper: sits below a section's content, left-aligned
+   by default to match each section's body copy. */
+.section-cta{
+  margin-top: clamp(40px, 6vw, 64px);
+  display: flex;
+}
+.section-cta-left{ justify-content: flex-start; }
+
+@media (max-width: 600px){
+  .section-cta{ justify-content: center; }
+}
+
 /* ==========================================================================
    Reveal-on-scroll base
    ========================================================================== */
@@ -408,7 +437,7 @@ html.js-reveal-ready [data-reveal]{
   vertical-align: bottom;
   height: 1.08em;
   white-space: nowrap;
-  flex-shrink: 0
+  flex-shrink: 0;
 }
 .cycle-word{
   display: inline-block;
@@ -474,15 +503,22 @@ html.js-reveal-ready [data-reveal]{
 }
 
 @media (max-width: 760px){
-  .hero{ padding-top: 120px; }
+  .hero{
+    padding-top: 120px;
+    /* Push the headline lower in the viewport (Kepler-style) instead of
+       vertically centering it, so there's real breathing room above it
+       on first load. */
+    justify-content: flex-end;
+    padding-bottom: 18vh;
+  }
   .hero-scroll-cue{ display: none; }
   /* Slightly smaller ceiling so the longest cycling word (Technology)
      never clips against the right edge at narrow widths. */
-     .hero-headline-fill{ font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .hero-headline-fill{ font-size: clamp(2.1rem, 9.6vw, 3rem); }
 }
 
 /* ==========================================================================
-   Eyebrow / shared yesss
+   Eyebrow / shared
    ========================================================================== */
 
 .eyebrow{
@@ -576,11 +612,42 @@ html.js-reveal-ready [data-reveal]{
     text-align: center;
   }
   .claim-copy{ align-items: center; }
-  .claim-media{ order: -1; margin-bottom: 8px; }
+  .claim-media{ margin-top: 32px; }
 }
 
 @media (max-width: 600px){
   .claim-headline{ font-size: clamp(1.7rem, 7vw, 2.2rem); }
+}
+
+/* ==========================================================================
+   Stat strip — quick, punchy counters between the claim and who-for
+   sections. Dark, restrained, no card chrome; the numbers do the work.
+   ========================================================================== */
+
+.stats{ background: var(--near-black); border-top: 1px solid var(--line-dark); }
+.stats-inner{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(32px, 5vw, 64px);
+  text-align: center;
+}
+.stat-item{ display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.stat-number{
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  color: var(--violet-glow);
+  line-height: 1;
+}
+.stat-number-text{ font-size: clamp(2rem, 3.8vw, 3rem); }
+.stat-label{
+  font-size: 0.95rem;
+  color: var(--lavender-grey);
+  max-width: 220px;
+}
+
+@media (max-width: 700px){
+  .stats-inner{ grid-template-columns: 1fr; gap: 40px; }
 }
 
 .problem{ background: var(--near-black); border-top: 1px solid var(--line-dark); }
@@ -815,7 +882,7 @@ html.js-reveal-ready .ledger-table [data-row]{
   padding: 40px;
   position: relative;
   overflow: hidden;
-  transition: background 0.4s var(--ease-soft);
+  transition: background 0.4s var(--ease-soft), transform 0.4s var(--ease-premium), box-shadow 0.4s var(--ease-premium);
 }
 .pillar-card::before{
   content: '';
@@ -827,7 +894,11 @@ html.js-reveal-ready .ledger-table [data-row]{
   pointer-events: none;
 }
 .pillar-card:hover::before{ opacity: 1; }
-.pillar-card:hover{ background: var(--surface-2); }
+.pillar-card:hover{
+  background: var(--surface-2);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -24px rgba(139,92,246,0.35);
+}
 
 .pillar-mark{
   width: 28px;
@@ -951,7 +1022,9 @@ html.js-reveal-ready .ledger-table [data-row]{
   padding: 32px;
   border-right: 1px solid var(--line-dark);
   border-bottom: 1px solid var(--line-dark);
+  transition: background 0.35s var(--ease-soft);
 }
+.who-item:hover{ background: var(--surface-2); }
 .who-item p{
   margin: 0;
   font-size: 1.02rem;

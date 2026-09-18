@@ -4,7 +4,7 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* -----------------------------------------------------------------
-     Scroll progress bar yessssss biiiiiiii
+     Scroll progress bar
   ----------------------------------------------------------------- */
   const progressBar = document.getElementById('scrollProgress');
   function updateProgress() {
@@ -46,7 +46,9 @@
   }
 
   /* -----------------------------------------------------------------
-     Generic scroll reveal via IntersectionObserver
+     Generic scroll reveal via IntersectionObserver.
+     Replays every time an element re-enters the viewport (scrolling
+     either direction), rather than firing once and stopping.
   ----------------------------------------------------------------- */
   const revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window && !reduceMotion) {
@@ -57,18 +59,26 @@
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const delay = entry.target.dataset.revealDelay || 0;
-          setTimeout(() => entry.target.classList.add('is-visible'), delay);
-          io.unobserve(entry.target);
+          clearTimeout(entry.target._revealTimer);
+          entry.target._revealTimer = setTimeout(() => entry.target.classList.add('is-visible'), delay);
+        } else {
+          // Leaving the viewport resets it so the animation can replay
+          // next time it scrolls back into view, in either direction.
+          clearTimeout(entry.target._revealTimer);
+          entry.target.classList.remove('is-visible');
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
 
     revealEls.forEach((el) => io.observe(el));
 
-    // Safety net: if anything goes wrong (e.g. an element never intersects
-    // due to layout edge cases), force everything visible after a max wait.
+    // Safety net: if an element never intersects at all (e.g. a layout
+    // edge case), make sure it's visible at least once after a max wait,
+    // without touching elements the observer is already managing normally.
     setTimeout(() => {
-      revealEls.forEach((el) => el.classList.add('is-visible'));
+      revealEls.forEach((el) => {
+        if (!el.classList.contains('is-visible')) el.classList.add('is-visible');
+      });
     }, 4000);
   } else {
     revealEls.forEach((el) => el.classList.add('is-visible'));
@@ -94,7 +104,11 @@
      rendered widths rather than relying on a fixed clamp() guess, so it
      self-corrects for font-rendering differences across devices. */
   function fitCycleLine() {
-    return;
+    return; // Disabled: mobile fit is now locked via a fixed CSS clamp
+            // instead of runtime JS resizing (see .hero-headline-fill
+            // mobile breakpoint in styles.css). Keeping the function body
+            // intact (rather than deleting call sites) so nothing else
+            // in this file needs to change.
     if (!cycleLineEl || !heroHeadlineEl) return;
     if (!heroHeadlineEl.dataset.fitted) heroHeadlineEl.style.fontSize = '';
     const containerWidth = cycleLineEl.parentElement.clientWidth;
@@ -124,17 +138,12 @@
 
   // Fit on load (covers whichever word starts visible) and on resize/orientation change.
   window.addEventListener('load', fitCycleLine);
-window.addEventListener('resize', fitCycleLine);
-fitCycleLine();
-setTimeout(fitCycleLine, 100);
-setTimeout(fitCycleLine, 500);
-setTimeout(fitCycleLine, 1500);
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(fitCycleLine);
-}
+  window.addEventListener('resize', fitCycleLine);
+  fitCycleLine();
 
   /* -----------------------------------------------------------------
-     Ledger rows tally in when the ledger enters view
+     Ledger rows tally in when the ledger enters view, and replay
+     each time it re-enters (either scroll direction).
   ----------------------------------------------------------------- */
   const ledgerTable = document.getElementById('ledgerTable');
   if (ledgerTable && 'IntersectionObserver' in window && !reduceMotion) {
@@ -142,33 +151,42 @@ if (document.fonts && document.fonts.ready) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           ledgerTable.classList.add('is-active');
-          ledgerIO.unobserve(entry.target);
+        } else {
+          ledgerTable.classList.remove('is-active');
         }
       });
     }, { threshold: 0.25 });
     ledgerIO.observe(ledgerTable);
-    setTimeout(() => ledgerTable.classList.add('is-active'), 4000);
+    setTimeout(() => {
+      if (!ledgerTable.classList.contains('is-active')) ledgerTable.classList.add('is-active');
+    }, 4000);
   } else if (ledgerTable) {
     ledgerTable.classList.add('is-active');
   }
 
   /* -----------------------------------------------------------------
-     How-it-works: fill connecting line + activate markers as steps enter
+     How-it-works: fill connecting line + activate markers as steps
+     enter view; resets and replays on re-entry.
   ----------------------------------------------------------------- */
   const stepsWrap = document.getElementById('stepsWrap');
   const stepsLineFill = document.getElementById('stepsLineFill');
   const stepEls = document.querySelectorAll('[data-step]');
   if (stepsWrap && stepEls.length && 'IntersectionObserver' in window) {
-    let activeCount = 0;
+    const activeSteps = new Set();
+    function updateStepsLine() {
+      const pct = (activeSteps.size / stepEls.length) * 100;
+      if (stepsLineFill) stepsLineFill.style.width = pct + '%';
+    }
     const stepIO = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-active');
-          stepIO.unobserve(entry.target);
-          activeCount++;
-          const pct = (activeCount / stepEls.length) * 100;
-          if (stepsLineFill) stepsLineFill.style.width = pct + '%';
+          activeSteps.add(entry.target);
+        } else {
+          entry.target.classList.remove('is-active');
+          activeSteps.delete(entry.target);
         }
+        updateStepsLine();
       });
     }, { threshold: 0.5 });
     stepEls.forEach((el) => stepIO.observe(el));
@@ -257,5 +275,67 @@ if (document.fonts && document.fonts.ready) {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && partnerModal.classList.contains('is-open')) closePartnerModal();
     });
+  }
+
+  /* -----------------------------------------------------------------
+     Subtle scroll-linked parallax on the hero glow beams, for a bit
+     more depth. Applied to each beam's wrapper (not the beam itself,
+     which already has its own CSS transform/animation for centering
+     and the breathing effect) so the two don't fight. Skips on
+     reduced-motion and uses requestAnimationFrame so it never runs
+     more than once per frame.
+  ----------------------------------------------------------------- */
+  const parallaxLayers = document.querySelectorAll('.hero-bg, .final-cta-bg');
+  if (parallaxLayers.length && !reduceMotion) {
+    let ticking = false;
+    function updateParallax() {
+      const y = window.scrollY;
+      parallaxLayers.forEach((layer) => {
+        const rect = layer.getBoundingClientRect();
+        // Only move layers reasonably near the viewport, to avoid
+        // pointless work on far-off sections.
+        if (rect.bottom > -400 && rect.top < window.innerHeight + 400) {
+          layer.style.transform = `translateY(${y * 0.08}px)`;
+        }
+      });
+      ticking = false;
+    }
+    document.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+  /* -----------------------------------------------------------------
+     Stat counters: animate from 0 up to their target each time the
+     strip scrolls into view (replays like the rest of the site's
+     reveal animations).
+  ----------------------------------------------------------------- */
+  const statNumbers = document.querySelectorAll('.stat-number[data-count-to]');
+  if (statNumbers.length && 'IntersectionObserver' in window) {
+    function animateCount(el) {
+      const target = parseInt(el.dataset.countTo, 10);
+      if (reduceMotion) { el.textContent = target; return; }
+      const duration = 900;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const statIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+        } else {
+          entry.target.textContent = '0';
+        }
+      });
+    }, { threshold: 0.6 });
+    statNumbers.forEach((el) => statIO.observe(el));
   }
 })();
