@@ -514,7 +514,7 @@ html.js-reveal-ready [data-reveal]{
   .hero-scroll-cue{ display: none; }
   /* Slightly smaller ceiling so the longest cycling word (Technology)
      never clips against the right edge at narrow widths. */
-  .hero-headline-fill{ font-size: clamp(2.1rem, 9.6vw, 3rem); }
+  .hero-headline-fill{ font-size: clamp(1.6rem, 7.5vw, 2.4rem); }
 }
 
 /* ==========================================================================
